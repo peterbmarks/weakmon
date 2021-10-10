@@ -194,10 +194,7 @@ def crc_python(msg, div, code=None):
     return msg[-len(code):]
 
 def crc(msg, div):
-    if True:
-        return crc_c(msg)
-    else:
-        return crc_python(msg, div)
+    return crc_python(msg, div)
 
 def check_crc(a91):
     padded = numpy.append(a91[0:77], numpy.zeros(5, dtype=numpy.int32))
