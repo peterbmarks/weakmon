@@ -136,11 +136,11 @@ def nfano_decode(in0, in1):
         xin0[i] = in0[i]
         xin1[i] = in1[i]
 
-    out_array_type = c_ubyte * (len(in0) / 2)
+    out_array_type = c_ubyte * int((len(in0) / 2))
     out_array = out_array_type()
 
     n_out = c_int()
-    n_out.value = len(in0) / 2
+    n_out.value = int(len(in0) / 2)
 
     metric_out_type = c_int * 1
     metric_out = metric_out_type()
@@ -156,7 +156,7 @@ def nfano_decode(in0, in1):
         return [ None, None ]
 
     a = []
-    for i in range(0, len(in0) / 2):
+    for i in range(0, int(len(in0) / 2)):
         a.append(out_array[i])
 
     metric = metric_out[0]
@@ -1263,17 +1263,17 @@ class WSPR:
       alnum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ "
       al = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
       call = ""
-      call = al[(n % 27)] + call
+      call = al[int(n % 27)] + call
       n /= 27
-      call = al[(n % 27)] + call
+      call = al[int(n % 27)] + call
       n /= 27
-      call = al[(n % 27)] + call
+      call = al[int(n % 27)] + call
       n /= 27
-      call = num[(n % 10)] + call
+      call = num[int(n % 10)] + call
       n /= 10
-      call = alnum[(n % 36)] + call
+      call = alnum[int(n % 36)] + call
       n /= 36
-      call = alnum[(n % 37)] + call
+      call = alnum[int(n % 37)] + call
       if n != (n % 37):
           # XXX might be Type 3
           sys.stderr.write("wspr unpack oops1\n")
@@ -1306,10 +1306,10 @@ class WSPR:
               return None
 
           grid = ""
-          grid += chr(ord('A')+loc1)
-          grid += chr(ord('A')+loc2)
-          grid += chr(ord('0')+loc3)
-          grid += chr(ord('0')+loc4)
+          grid += chr(int(ord('A')+loc1))
+          grid += chr(int(ord('A')+loc2))
+          grid += chr(int(ord('0')+loc3))
+          grid += chr(int(ord('0')+loc4))
 
           # XXX nhash is too complex for me.
           # ihash = self.nhash(call)
