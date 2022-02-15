@@ -13,7 +13,7 @@ incorporate ideas and protocol details derived from that software.
 These programs use Phil Karn's Reed-Solomon and convolutional
 decoders.
 
-My (Peter Marks) is focussed on running on python3 and I'm testing
+My (Peter Marks) fork is focussed on running WSPR on python3 and I'm testing
 on Ubuntu 21.10. Thanks to kholia for his work that I'm forking from.
 
 The software depends on a few packages. Here's how to install them
@@ -165,7 +165,7 @@ Robert Morris, AB1HL
 
 # Changes by Peter Marks
 
-I started this fork because I tried running under python3 on Ubuntu and got exceptions
+I started this fork because I tried running WSPR under python3 on Ubuntu and got exceptions
 like this:
 
 ```
