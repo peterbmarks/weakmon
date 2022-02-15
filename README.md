@@ -13,25 +13,18 @@ incorporate ideas and protocol details derived from that software.
 These programs use Phil Karn's Reed-Solomon and convolutional
 decoders.
 
+My (Peter Marks) is focussed on running on python3 and I'm testing
+on Ubuntu 21.10. Thanks to kholia for his work that I'm forking from.
+
 The software depends on a few packages. Here's how to install them
 on Ubuntu Linux:
 ```
-  sudo apt-get install python2.7
-  sudo apt-get install python-six
-  sudo apt-get install gcc-5
-  sudo apt-get install python-numpy
-  sudo apt-get install python-scipy
-  sudo apt-get install python-pyaudio
-  sudo apt-get install python-serial
-```
-
-If you have a Mac with macports:
-```
-  sudo port install python27
-  sudo port install py27-numpy
-  sudo port install py27-scipy
-  sudo port install py27-pyaudio
-  sudo port install py27-serial
+  sudo apt install python3-six
+  sudo apt install gcc-5
+  sudo apt install python3-numpy
+  sudo apt install python3-scipy
+  sudo apt install python3-pyaudio
+  sudo apt install python3-serial
 ```
 
 Now compile the LDPC decoder, and Phil Karn's Reed-Solomon and convolutional decoders:
@@ -46,7 +39,7 @@ no arguments, and see lists of available sound cards and serial ports,
 like this:
 
 ```
-% python2.7 ft8i.py
+% python3 ft8i.py
 usage: ft8i.py [-h] [-card CARD CHAN] [-cat TYPE DEV] [-levels] [-v]
                 [-band BAND] [-bands BANDS] [-card2 CARD CHAN]
                 [-card3 CARD CHAN] [-card4 CARD CHAN] [-out CARD] [-test]
@@ -64,12 +57,46 @@ serial devices for -cat:
 radio types for -cat: k3 rx340 8711 sdrip sdriq r75 r8500 ar5000 eb200 sdrplay prc138 
 ```
 
+Here's how I run WSPR receive with an IC-7300 connected via USB.
+
+```
+$ python3 wsprmon.py -card 6 0 -band 40
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
+ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
+ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
+ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
+reporting to wsprnet as VK3TPM at QF22ds.
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
+ALSA lib pcm.c:2660:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_route.c:877:(find_matching_chmap) Found no matching channel map
+ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
+ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
+ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
+ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
+
+15/02/22 00:02  7.040104 VK2GZZ QF46 23 -4 2.0 0.0 Australia
+```
+
+To report to WSPRnet you'll need to set up a weak.cfg file by copying the example
+weak.cfg.example
+
 If you've hooked up a transceiver with VOX to your computer's sound
 card, and set it to 14.074 and USB, you can use ft8i.py like
 this:
 
 ```
-  % python2.7 ft8i.py -card 2 0 -out 1 -band 20
+  % python3 ft8i.py -card 2 0 -out 1 -band 20
 
 ```
 
@@ -84,7 +111,7 @@ minute. For example, this command will tell a K3 to scan 30, 20, and
 17 meters for JT65.
 
 ```
-  % python2.7 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -bands "30 20 17"
+  % python3 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -bands "30 20 17"
 ```
 
 ft8i.py can listen to multiple receivers at the same time, so that
@@ -92,19 +119,19 @@ you can look for CQs on more than one band simultaneously. For
 example, for a K3 with a sub-receiver:
 
 ```
-  % python2.7 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -card2 2 1 -cat2 k3 - -bands "40 30 20"
+  % python3 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -card2 2 1 -cat2 k3 - -bands "40 30 20"
 ```
 
 For a K3 (without sub-receiver) and an RFSpace NetSDR/CloudIQ/SDR-IP:
 
 ```
-  % python2.7 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -card2 sdrip 192.168.3.130 -bands "40 30 20"
+  % python3 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -card2 sdrip 192.168.3.130 -bands "40 30 20"
 ```
 
 For a K3 with sub-receiver and an RFSpace NetSDR/CloudIQ/SDR-IP (i.e. three receivers):
 
 ```
-  % python2.7 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -card2 2 1 -cat2 k3 - -card3 sdrip 192.168.3.130 -bands "40 30 20"
+  % python3 ft8i.py -card 2 0 -out 1 -cat k3 /dev/cu.usbserial-A503XT23 -card2 2 1 -cat2 k3 - -card3 sdrip 192.168.3.130 -bands "40 30 20"
 ```
 
 You may need to take steps to give yourself permission to use the
@@ -135,3 +162,31 @@ This software surely contains errors, particularly since I'm no expert
 at signal processing. I'd appreciate fixes for any bugs you discover.
 
 Robert Morris, AB1HL
+
+# Changes by Peter Marks
+
+I started this fork because I tried running under python3 on Ubuntu and got exceptions
+like this:
+
+```
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/threading.py", line 973, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.9/threading.py", line 910, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/marksp/Developer/weakmon-master/wsprmon.py", line 129, in <lambda>
+    self.rth = threading.Thread(target=lambda : self.r.gocard())
+  File "/home/marksp/Developer/weakmon-master/wspr.py", line 438, in gocard
+    self.process(samples[i0:], t)
+  File "/home/marksp/Developer/weakmon-master/wspr.py", line 563, in process
+    dec = self.process1(samples_minute, ss[0:162], hza, noise)
+  File "/home/marksp/Developer/weakmon-master/wspr.py", line 1219, in process1
+    [ msgbits, metric ] = nfano_decode(sym0, sym1)
+  File "/home/marksp/Developer/weakmon-master/wspr.py", line 139, in nfano_decode
+    out_array_type = c_ubyte * (len(in0) / 2)
+TypeError: can't multiply sequence by non-int of type 'float'
+```
+
+I think what's going on is that the value returned by len() gets converted to a float
+if some arithmetic operation is done on the result.
