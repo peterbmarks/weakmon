@@ -1363,9 +1363,9 @@ class WSPR:
           for i in [ 2, 1, 0 ]:
               nc = n3 % 37
               if nc >= 0 and nc <= 9:
-                  pfx[i] = chr(ord('0') + nc)
+                  pfx[i] = int(chr(ord('0') + nc))
               elif nc >= 10 and nc <= 35:
-                  pfx[i] = chr(ord('A') + (nc - 10))
+                  pfx[i] = int(chr(ord('A') + (nc - 10)))
               else:
                   pfx[i] = " "
               n3 /= 37
