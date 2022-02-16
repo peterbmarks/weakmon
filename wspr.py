@@ -1295,7 +1295,7 @@ class WSPR:
           m /= 10
           loc2 = m % 18
           m /= 18
-          m = 179 - m
+          m = 180 - m
           loc3 = m % 10
           m /= 10
           loc1 = m
