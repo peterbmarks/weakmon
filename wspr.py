@@ -1361,7 +1361,7 @@ class WSPR:
           # prefix of 1 to 3 characters.
           pfx = [ "?", "?", "?" ]
           for i in [ 2, 1, 0 ]:
-              nc = n3 % 37
+              nc = int(n3 % 37)
               if nc >= 0 and nc <= 9:
                   pfx[i] = int(chr(ord('0') + nc))
               elif nc >= 10 and nc <= 35:
