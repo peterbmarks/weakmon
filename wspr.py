@@ -1374,9 +1374,9 @@ class WSPR:
           # suffix of 1 or 2 characters.
           nc = n3 - 60000
           if nc >= 0 and nc <= 9:
-              return "%s/%s" % (call, chr(ord('0')+nc))
+              return "%s/%s" % (call, ord('0')+nc)
           if nc >= 10 and nc <= 35:
-              return "%s/%s" % (call, chr(ord('A')+(nc-10)))
+              return "%s/%s" % (call, ord('A')+(nc-10))
           if nc >= 36 and nc <= 125:
               p0 = chr(ord('0')+(nc-26)/10)
               p1 = chr(ord('0')+(nc-26)%10)
